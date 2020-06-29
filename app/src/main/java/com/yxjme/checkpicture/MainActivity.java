@@ -1,15 +1,11 @@
 package com.yxjme.checkpicture;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import com.yxjme.checkpicturelibrary.CallBack;
@@ -34,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void btn(View view){
-
         List<String> list = new ArrayList<>();
         list.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         list.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -77,9 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     Uri outFileUri;
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+    protected void onActivityResult(int requestCode, int resultCode,  Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode){
@@ -99,9 +93,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 }
