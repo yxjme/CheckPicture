@@ -3,11 +3,17 @@ package com.yxjme.checkpicture;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.yxjme.checkpicturelibrary.CallBack;
 import com.yxjme.checkpicturelibrary.CheckPermissionUtil;
 import com.yxjme.checkpicturelibrary.CheckPictureDialog;
@@ -20,11 +26,30 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView image ;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         image = findViewById(R.id.image);
+
+
+        final NestedScrollView mNestedScrollView = findViewById(R.id.mNestedScrollView);
+        final FloatButton floatButton = new FloatButton(this);
+        floatButton.init(this,Gravity.BOTTOM|Gravity.RIGHT);
+        floatButton.setSrc(R.mipmap.icon_search);
+        mNestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                floatButton.move(i1);
+            }
+        });
+        floatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNestedScrollView.setScrollY(0);
+            }
+        });
     }
 
 
@@ -59,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void error(String s) {
-
+                                Toast.makeText(MainActivity.this,s,Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -92,5 +117,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }
